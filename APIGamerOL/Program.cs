@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+//Configuracion de TOKEN 
 builder.Configuration.AddJsonFile("appsettings.json");
 var secretKey = builder.Configuration.GetSection("settings").GetSection("secretKey").ToString();
 var keyBytes  =Encoding.UTF8.GetBytes(secretKey);
@@ -47,9 +48,19 @@ builder.Services.AddScoped<ISecureDomainServices, SecureDomainServices>();
 builder.Services.AddDbContext<SecureContext>(options =>
 options.UseSqlServer("Data Source=JULIANSOTOGOMEZ\\SQLEXPRESS;Initial Catalog=GamerOL;Integrated Security=false;User ID=sa; Password=Blink3027@;MultipleActiveResultSets=True;"));
 
-
+//Configuracion de CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PoliticaCORS", x =>
+    {
+        x.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -61,6 +72,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+
+app.UseCors("PoliticaCORS");
 
 app.UseAuthorization();
 
