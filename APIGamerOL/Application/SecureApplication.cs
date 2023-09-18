@@ -15,14 +15,15 @@ namespace APIGamerOL.Application
     {
         #region Fields
         private readonly ISecureDomainServices _secureDomainServices;
-        
+        private readonly string _secretKey;
 
         #endregion
 
         #region Build
-        public SecureApplication(ISecureDomainServices secureDomainServices) 
+        public SecureApplication(ISecureDomainServices secureDomainServices, IConfiguration configuration) 
         {
             _secureDomainServices = secureDomainServices;
+            _secretKey = configuration.GetSection("settings").GetSection("secretKey").ToString();
         }
         #endregion
 
@@ -57,8 +58,6 @@ namespace APIGamerOL.Application
 
                     _secureDomainServices.Insert(usuario);
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -76,7 +75,24 @@ namespace APIGamerOL.Application
                 var resultUser = _secureDomainServices.Find(authenticationLoginRequestDTO.Email, authenticationLoginRequestDTO.Password);
                 if(resultUser != null)
                 {
+                    var keyBytes = Encoding.ASCII.GetBytes(_secretKey);
+                    var claims = new ClaimsIdentity();
 
+                    claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, authenticationLoginRequestDTO.Email));
+
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Subject = claims,
+                        Expires = DateTime.UtcNow.AddHours(1),
+                        SigningCredentials=new SigningCredentials(new SymmetricSecurityKey(keyBytes),SecurityAlgorithms.HmacSha256Signature)
+                    };
+
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var tokenConfig = tokenHandler.CreateToken(tokenDescriptor);
+
+                    string createToken = tokenHandler.WriteToken(tokenConfig);
+
+                    response.Result= createToken;
                 }
                 else
                 {
@@ -90,6 +106,7 @@ namespace APIGamerOL.Application
 
                 response.ResponseMessage("Error en el sistema", false, ex.Message);
             }
+
             return response;
         }
 

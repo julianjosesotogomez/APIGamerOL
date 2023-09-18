@@ -7,7 +7,7 @@ namespace APIGamerOL.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class SecureController:ControllerBase
     {
         #region Fields
