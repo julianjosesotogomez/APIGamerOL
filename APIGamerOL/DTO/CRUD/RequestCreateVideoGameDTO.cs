@@ -1,5 +1,19 @@
-﻿namespace APIGamerOL.DTO.CRUD
+﻿using FluentValidation;
+
+namespace APIGamerOL.DTO.CRUD
 {
+    public class Validator : AbstractValidator<RequestCreateVideoGameDTO>
+    {
+        public Validator()
+        {
+            RuleFor(dto => dto.Name).NotEmpty().NotNull();
+            RuleFor(dto => dto.Company).NotEmpty().NotNull();
+            RuleFor(dto => dto.YearOfLaunch).NotEmpty().NotNull();
+            RuleFor(dto => dto.Price).NotEmpty().NotNull();
+            RuleFor(dto => dto.Score).NotEmpty().NotNull();
+            RuleFor(dto => dto.User).NotEmpty().NotNull();
+        }
+    }
     public class RequestCreateVideoGameDTO
     {
         /// <summary>

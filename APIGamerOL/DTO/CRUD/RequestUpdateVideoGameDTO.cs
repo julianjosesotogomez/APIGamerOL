@@ -1,11 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using FluentValidation;
+using System.Text.Json.Serialization;
+
 
 namespace APIGamerOL.DTO.CRUD
 {
     public class RequestUpdateVideoGameDTO
     {
         [JsonIgnore]
-
         public int? Id { get; set; }
         /// <summary>
         /// Nombre del video juego
