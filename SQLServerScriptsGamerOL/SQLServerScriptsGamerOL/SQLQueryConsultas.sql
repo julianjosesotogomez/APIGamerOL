@@ -2,11 +2,10 @@
 
 SELECT * FROM Calificaciones
 SELECT * FROM VideoJuegos
+SELECT * FROM Usuario
 
 --STORED PROCEDURE
 
-EXECUTE GenerarCalificaciones @cantidad = 1000000, @CodigoError = 0, @MensajeError = NULL
+EXECUTE GenerarCalificaciones @cantidad = 30, @CodigoError = 0, @MensajeError = NULL
 
 
-ALTER LOGIN sa
-WITH PASSWORD = 'Blink3027@';

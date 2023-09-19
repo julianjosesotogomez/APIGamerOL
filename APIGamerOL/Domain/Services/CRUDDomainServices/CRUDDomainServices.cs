@@ -48,7 +48,7 @@ namespace APIGamerOL.Domain.Services.CRUDDomainServices
         }
         public void DeleteVideoGame(int id)
         {
-            var dataVideoGame = _context.Videojuegos.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            var dataVideoGame = _context.Videojuegos.AsNoTracking().Include(x=>x.Calificaciones).FirstOrDefault(x => x.Id == id);
             _context.Videojuegos.Remove(dataVideoGame);
             _context.SaveChanges();
 
