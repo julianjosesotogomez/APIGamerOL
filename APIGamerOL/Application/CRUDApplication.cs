@@ -127,10 +127,10 @@ namespace APIGamerOL.Application
                 Videojuegos createNew = new Videojuegos();
                 createNew.Id = id;
                 createNew.Nombre = requestUpdateVideoGameDTO.Name is null?videoGame.Nombre: requestUpdateVideoGameDTO.Name;
-                createNew.Compañia = requestUpdateVideoGameDTO.Company is null ? videoGame.Nombre : requestUpdateVideoGameDTO.Name; ;
-                createNew.AñoLanzamiento = requestUpdateVideoGameDTO.YearOfLaunch is 0 ? videoGame.AñoLanzamiento : requestUpdateVideoGameDTO.YearOfLaunch; ;
-                createNew.Precio =  requestUpdateVideoGameDTO.Price is 0 ? videoGame.Precio : requestUpdateVideoGameDTO.Price; ;
-                createNew.Puntaje = requestUpdateVideoGameDTO.Score is 0 ? videoGame.Puntaje : requestUpdateVideoGameDTO.Score; ;
+                createNew.Compañia = requestUpdateVideoGameDTO.Company is null ? videoGame.Compañia : requestUpdateVideoGameDTO.Company;
+                createNew.AñoLanzamiento = requestUpdateVideoGameDTO.YearOfLaunch is 0 ? videoGame.AñoLanzamiento : requestUpdateVideoGameDTO.YearOfLaunch;
+                createNew.Precio =  requestUpdateVideoGameDTO.Price is 0 ? videoGame.Precio : requestUpdateVideoGameDTO.Price;
+                createNew.Puntaje = requestUpdateVideoGameDTO.Score is 0 ? videoGame.Puntaje : requestUpdateVideoGameDTO.Score;
                 createNew.FechaActualizacion = DateTime.Now;
                 createNew.Usuario = requestUpdateVideoGameDTO.User is null ?videoGame.Usuario:requestUpdateVideoGameDTO.User;
 

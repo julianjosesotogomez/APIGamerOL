@@ -2,6 +2,7 @@
 using APIGamerOL.Domain.Entities.CRUDEntities;
 using APIGamerOL.DTO.CRUD;
 using APIGamerOL.DTO.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -9,6 +10,7 @@ namespace APIGamerOL.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class CRUDController : ControllerBase
     {
         #region Fields
