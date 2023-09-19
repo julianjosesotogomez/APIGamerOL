@@ -12,15 +12,15 @@ namespace APIGamerOL.Controllers
     {
         #region Fields
 
-        private readonly ISecureApplication _registerApplication;
+        private readonly ISecureApplication _secureApplication;
 
         #endregion
 
         #region Builder
 
-        public SecureController(ISecureApplication registerApplication)
+        public SecureController(ISecureApplication secureApplication)
         {
-            _registerApplication = registerApplication;
+            _secureApplication = secureApplication;
         }
 
         #endregion
@@ -33,7 +33,7 @@ namespace APIGamerOL.Controllers
         {
             return await Task.Run(() =>
             {
-                return _registerApplication.Register(registerRequestDTO);
+                return _secureApplication.Register(registerRequestDTO);
             });
         }
 
@@ -43,7 +43,7 @@ namespace APIGamerOL.Controllers
         {
             return await Task.Run(() =>
             {
-                return _registerApplication.AuthenticationLogin(authenticationLoginRequestDTO);
+                return _secureApplication.AuthenticationLogin(authenticationLoginRequestDTO);
             });
         }
 
